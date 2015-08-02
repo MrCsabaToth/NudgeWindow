@@ -73,13 +73,14 @@ END_MESSAGE_MAP()
 HWND CNudgeWindowDlg::GetTargetWindowHandle()
 {
 	CString text;
-	m_wndEdit.GetLine(0, text.GetBuffer(256), 256);
-	UINT hexNum = strtoul((LPCTSTR)text, NULL, 16);
+	//m_wndEdit.GetLine(0, text.GetBuffer(256), 256);
+	m_wndEdit.GetWindowText(text);
+	UINT hexNum = wcstoul((const WCHAR *)text, NULL, 16);
 	if (hexNum == 0 ||
 		hexNum == LONG_MIN ||
 		hexNum == LONG_MAX)
 	{
-		AfxMessageBox((LPCTSTR)"hWnd doesn't seem to be a valid hexa number.");
+		AfxMessageBox(_T("hWnd doesn't seem to be a valid hexa number."));
 	}
 	else
 	{
@@ -90,7 +91,7 @@ HWND CNudgeWindowDlg::GetTargetWindowHandle()
 		}
 		else
 		{
-			AfxMessageBox((LPCTSTR)"hWnd doesn't seem to be a valid window handle. Please specify it in hex format.");
+			AfxMessageBox(_T("hWnd doesn't seem to be a valid window handle. Please specify it in hex format."));
 		}
 	}
 	return NULL;
